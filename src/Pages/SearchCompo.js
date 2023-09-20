@@ -24,6 +24,7 @@ const SearchCompo = () => {
 
     const filteredProducts = searchResults.filter(
         (product) =>
+
             product?.status.toLowerCase().includes(statusFilter.toLowerCase()) &&
             product?.type.toLowerCase().includes(typeFilter.toLowerCase()) &&
             (dateFilter === "" ||
@@ -79,7 +80,7 @@ const SearchCompo = () => {
                                         className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-blue-700 text-gray-900"
                                         value={dateFilter}
                                         onChange={(e) => {
-                                            // setCurrentPage(1);
+                                            setPage(1)
                                             setDateFilter(e.target.value);
                                         }}
                                     >
@@ -103,6 +104,8 @@ const SearchCompo = () => {
                                         className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
                                         value={statusFilter}
                                         onChange={(e) => {
+                                            setPage(1)
+
                                             setStatusFilter(e.target.value);
                                         }}
                                     >
@@ -128,6 +131,7 @@ const SearchCompo = () => {
                                         onChange={(e) => {
                                             // setCurrentPage(1);
                                             setTypeFilter(e.target.value);
+                                            setPage(1)
                                         }}
                                     >
                                         <option value="">All</option>
@@ -164,10 +168,11 @@ const SearchCompo = () => {
                     <div className="container flex items-center lg:items-start flex-col flex-wrap justify-center mx-auto lg:flex-row lg:justify-center gap-10 ">
                         {!loading &&
                             filteredProducts.slice(page * 4 - 4, page * 4).map((product) => {
-                                return (
+                                return (<>
 
                                     <AllCapsule key={product?.capsule_serial}
                                         capsule={product} />
+                                </>
                                 )
                             })}
 
